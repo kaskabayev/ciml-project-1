@@ -5,7 +5,7 @@ import pylab
 from numpy import *
 
 def raiseNotDefined():
-  print "Method not implemented: %s" % inspect.stack()[1][3]    
+  print("Method not implemented: %s" % inspect.stack()[1][3])
   sys.exit(1)
 
 def permute(a):

@@ -1,0 +1,4 @@
+#WU1: Why is this computation equivalent to computing classification accuracy?
+    Because it first compares with defining value, that classifies 1 or 0. Then it sums all 1s and divides by the total getting mean
+    which is classification accuracy.
+

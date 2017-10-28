@@ -108,7 +108,7 @@ def loadTextData(filename):
             x = {}
             for w in a[1:]:
                 x[w] = x.get(w,0) + 1.
-            for w in x.iterkeys():
+            for w in x.keys():
                 wfreq[w] += 1
             D.append( (x,y) )
     h.close()
@@ -116,7 +116,7 @@ def loadTextData(filename):
     wid = {}
     widr = []
     maxId = 1
-    for w,c in wfreq.iteritems():
+    for w,c in wfreq.items():
         if c >= 10 and c < 0.7*len(D):
             wid[w] = maxId
             widr.append(w)
@@ -129,8 +129,8 @@ def loadTextData(filename):
     for n in range(len(D)):
         (x,y) = D[n]
         Yall[n] = y
-        for w in x.iterkeys():
-            if wid.has_key(w):
+        for w in x.keys():
+            if w in wid:
                 Xall[n,wid[w]-1] = 1.
 
     return Xall,Yall,widr,array(meta)
@@ -190,6 +190,6 @@ class RecipeData:
 def savePredictions(filename, Yhat):
     with open(filename, 'w') as h:
         for y in Yhat:
-            print >>h, str(y)
-    print 'saved!'
+            print(str(y), file=h)
+    print('saved!')
 

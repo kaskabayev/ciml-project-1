@@ -30,7 +30,7 @@ def trainTest(classifier, X, Y, Xtest, Ytest):
     Ypred = classifier.predictAll(Xtest);           # predict the training data
     teAcc = mean((Ytest >= 0) == (Ypred >= 0));     # check to see how often the predictions are right
 
-    print "Training accuracy %g, test accuracy %g" % (trAcc, teAcc)
+    print("Training accuracy %g, test accuracy %g" % (trAcc, teAcc))
 
     return (trAcc, teAcc, Ypred)
 
@@ -62,7 +62,7 @@ def learningCurve(classifier, X, Y, Xtest, Ytest):
         Ytr = Y[ids]
 
         # report what we're doing
-        print "Training classifier on %d points..." % ids.size
+        print("Training classifier on %d points..." % ids.size)
 
         # train the classifier
         (trAcc, teAcc, Ypred) = trainTest(classifier, Xtr, Ytr, Xtest, Ytest)
@@ -83,7 +83,7 @@ def hyperparamCurve(classifier, hpName, hpValues, X, Y, Xtest, Ytest):
     testAcc  = zeros(M)
     for m in range(M):
         # report what we're doing
-        print "Training classifier with %s=%g..." % (hpName, hpValues[m])
+        print("Training classifier with %s=%g..." % (hpName, hpValues[m]))
         
         # train the classifier
         classifier.setOption(hpName, hpValues[m])
