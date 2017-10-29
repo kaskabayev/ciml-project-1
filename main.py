@@ -1,7 +1,7 @@
 from imports import *
-
+'''
+Warming up to Classifiers
+'''
 h = dumbClassifiers.AlwaysPredictOne({})
 h.train(datasets.TennisData.X, datasets.TennisData.Y)
-predictAllOne = h.predictAll(datasets.TennisData.X)
-print(predictAllOne)
-
+runClassifier.trainTestSet(h, datasets.TennisData)
