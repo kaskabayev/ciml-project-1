@@ -57,12 +57,12 @@ def mode(seq):
   else:
     cnt = {}
     for item in seq:
-      if cnt.has_key(item):
+      if item in cnt:
         cnt[item] += 1
       else:
         cnt[item] = 1
     maxItem = seq[0]
-    for item,c in cnt.iteritems():
+    for item,c in cnt.items():
       if c > cnt[maxItem]:
         maxItem = item
     return maxItem
