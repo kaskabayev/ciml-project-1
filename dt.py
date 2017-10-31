@@ -109,7 +109,7 @@ class DT(BinaryClassifier):
                 # we'll classify the left points as their most
                 # common class and ditto right points.  our error
                 # is the how many are not their mode.
-                error = size((leftY != util.mode(leftY)).nonzero()) + size((rightY != util.mode(rightY)).nonzero())  # TODO: counting in each branch amount of labels that are not equal to their mode
+                error = size(nonzero([leftY != util.mode(leftY)])) + size(nonzero([rightY != util.mode(rightY)]))  # TODO: counting in each branch amount of labels that are not equal to their mode
 
                 # check to see if this is a better error rate
                 if error <= bestError:
@@ -135,12 +135,13 @@ class DT(BinaryClassifier):
 
                 # TODO: define X and Y for left and right parts of current tree and init DT training
                 # redefine labels with the best feature
+                used = used + [self.feature]  # anti infinite loop
+
                 leftX = X[X[:, self.feature] < 0.5]
                 rightX = X[X[:, self.feature] >= 0.5]
+
                 leftY = Y[X[:, self.feature] < 0.5]
                 rightY = Y[X[:, self.feature] >= 0.5]
-
-                used = used + [self.feature] # anti infinite loop
 
                 self.left.trainDT(leftX, leftY, maxDepth-1, used)
                 self.right.trainDT(rightX, rightY, maxDepth-1, used)

@@ -15,7 +15,7 @@ Warming up to Classifiers
 '''
 Decision Trees
 '''
-h = dt.DT({'maxDepth': 1})
+h = dt.DT({'maxDepth': 5})
 h.train(datasets.TennisData.X, datasets.TennisData.Y)
 print(h)
 
