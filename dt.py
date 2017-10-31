@@ -86,15 +86,16 @@ class DT(BinaryClassifier):
         if maxDepth <= 0 or len(util.uniq(Y)) <= 1:
             # we'd better end at this point.  need to figure
             # out the label to return
-            self.isLeaf = True    ### TODO: YOUR CODE HERE
+            self.isLeaf = True    # TODO: well, that's leaf
 
-            self.label  = util.mode(Y)    ### TODO: YOUR CODE HERE
+            self.label  = util.mode(Y)    # TODO: and retturn mode of labels
 
 
         else:
             # we need to find a feature to split on
             bestFeature = -1     # which feature has lowest error
             bestError   = N      # the number of errors for this feature
+
             for d in range(D):
                 # have we used this feature yet
                 if d in used:
@@ -102,13 +103,13 @@ class DT(BinaryClassifier):
 
                 # suppose we split on this feature; what labels
                 # would go left and right?
-                leftY  = Y[X[:, d] < 0.5]    ### TODO: YOUR CODE HERE
-                rightY = Y[X[:, d] >= 0.5]    ### TODO: YOUR CODE HERE
+                leftY  = Y[X[:, d] < 0.5]    # TODO: Labels which feature value less than .5
+                rightY = Y[X[:, d] >= 0.5]    # TODO: Labels which feature value greater than or equal to .5
 
                 # we'll classify the left points as their most
                 # common class and ditto right points.  our error
                 # is the how many are not their mode.
-                error = size((leftY != util.mode(leftY)).nonzero()) + size((rightY != util.mode(rightY)).nonzero())  ### TODO: YOUR CODE HERE
+                error = size((leftY != util.mode(leftY)).nonzero()) + size((rightY != util.mode(rightY)).nonzero())  # TODO: counting in each branch amount of labels that are not equal to their mode
 
                 # check to see if this is a better error rate
                 if error <= bestError:
@@ -121,8 +122,8 @@ class DT(BinaryClassifier):
                 self.label  = util.mode(Y)
 
             else:
-                self.isLeaf  = False    ### TODO: YOUR CODE HERE
-                self.feature = bestFeature    ### TODO: YOUR CODE HERE
+                self.isLeaf  = False    # TODO: that's not leaf, cause it is a whole branch
+                self.feature = bestFeature    # TODO: which carries its own feature
 
                 self.left  = DT({'maxDepth': maxDepth-1})
                 self.right = DT({'maxDepth': maxDepth-1})

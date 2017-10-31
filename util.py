@@ -51,7 +51,7 @@ def uniq(seq, idfun=None):
     result.append(item)
   return result
 
-def mode(seq):
+def mode(seq): # returns most common label
   if len(seq) == 0:
     return 1.
   else:
