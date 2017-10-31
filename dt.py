@@ -6,7 +6,7 @@ it's easier to code than the information-based metrics).
 """
 
 from numpy import *
-
+import datasets
 from binary import *
 import util
 
@@ -53,7 +53,7 @@ class DT(BinaryClassifier):
         if self.isLeaf:
             return (" " * (depth*2)) + "Leaf " + repr(self.label) + "\n"
         else:
-            return (" " * (depth*2)) + "Branch " + repr(self.feature) + "\n" + \
+            return (" " * (depth*2)) + "Branch " + repr(datasets.SentimentData.words[self.feature]) + "\n" + \
                       self.left.displayTree(depth+1) + \
                       self.right.displayTree(depth+1)
 
@@ -65,7 +65,13 @@ class DT(BinaryClassifier):
         """
 
         ### TODO: YOUR CODE HERE
-        util.raiseNotDefined()
+        if self.isLeaf:
+            return repr(self.label)
+        else:
+            if X[self.feature] < 0.5:
+                return self.left.predict(X)
+            else:
+                return self.right.predict(X)
 
     def trainDT(self, X, Y, maxDepth, used):
         """
@@ -161,8 +167,8 @@ class DT(BinaryClassifier):
             
           - it is very useful to be able to 'split' matrices and vectors:
             if you want the ids for all the Xs for which the 5th feature is
-            on, say X(:,5)>=0.5.  If you want the corresponting classes,
-            say Y(X(:,5)>=0.5) and if you want the correspnding rows of X,
+            on, say X(:,5)>=0.5.  If you want the corresponding classes,
+            say Y(X(:,5)>=0.5) and if you want the corresponding rows of X,
             say X(X(:,5)>=0.5,:)
             
           - i suggest having train() just call a second function that

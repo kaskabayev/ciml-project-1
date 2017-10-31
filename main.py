@@ -12,6 +12,24 @@ Warming up to Classifiers
 # print('First Feature Classifier (SentimentData):')
 # runClassifier.trainTestSet(dumbClassifiers.FirstFeatureClassifier({}), datasets.SentimentData)
 
-h = dt.DT({'maxDepth': 5})
+'''
+Decision Trees
+'''
+h = dt.DT({'maxDepth': 1})
 h.train(datasets.TennisData.X, datasets.TennisData.Y)
 print(h)
+
+'''
+Running training and tests set
+'''
+# runClassifier.trainTestSet(dt.DT({'maxDepth': 1}), datasets.SentimentData)
+# runClassifier.trainTestSet(dt.DT({'maxDepth': 3}), datasets.SentimentData)
+# runClassifier.trainTestSet(dt.DT({'maxDepth': 5}), datasets.SentimentData)
+
+'''
+Better in terminal
+'''
+# curve = runClassifier.learningCurveSet(dt.DT({'maxDepth': 9}), datasets.SentimentData)
+# runClassifier.plotCurve('DT on Sentiment Data', curve)
+# curve = runClassifier.hyperparamCurveSet(dt.DT({}), 'maxDepth', [1,2,4,6,8,12,16], datasets.SentimentData)
+# runClassifier.plotCurve('DT on Sentiment Data (hyperparameter)', curve)
