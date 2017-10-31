@@ -51,9 +51,9 @@ class DT(BinaryClassifier):
     def displayTree(self, depth):
         # recursively display a tree
         if self.isLeaf:
-            return (" " * (depth*2)) + "Leaf " + repr(self.label) + "\n"
+            return (" " * (depth*2)) + "Leaf " + str(self.label) + "\n"
         else:
-            return (" " * (depth*2)) + "Branch " + repr(datasets.SentimentData.words[self.feature]) + "\n" + \
+            return (" " * (depth*2)) + "Branch " + repr(datasets.SentimentData.words[self.feature]) + ", " + str(self.feature) + "\n" + \
                       self.left.displayTree(depth+1) + \
                       self.right.displayTree(depth+1)
 
@@ -66,7 +66,7 @@ class DT(BinaryClassifier):
 
         ### TODO: YOUR CODE HERE
         if self.isLeaf:
-            return repr(self.label)
+            return str(self.label)
         else:
             if X[self.feature] < 0.5:
                 return self.left.predict(X)
@@ -103,15 +103,12 @@ class DT(BinaryClassifier):
                 # suppose we split on this feature; what labels
                 # would go left and right?
                 leftY  = Y[X[:, d] < 0.5]    ### TODO: YOUR CODE HERE
-
                 rightY = Y[X[:, d] >= 0.5]    ### TODO: YOUR CODE HERE
-
 
                 # we'll classify the left points as their most
                 # common class and ditto right points.  our error
                 # is the how many are not their mode.
                 error = size((leftY != util.mode(leftY)).nonzero()) + size((rightY != util.mode(rightY)).nonzero())  ### TODO: YOUR CODE HERE
-
 
                 # check to see if this is a better error rate
                 if error <= bestError:
@@ -125,9 +122,7 @@ class DT(BinaryClassifier):
 
             else:
                 self.isLeaf  = False    ### TODO: YOUR CODE HERE
-
                 self.feature = bestFeature    ### TODO: YOUR CODE HERE
-
 
                 self.left  = DT({'maxDepth': maxDepth-1})
                 self.right = DT({'maxDepth': maxDepth-1})
