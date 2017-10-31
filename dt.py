@@ -132,21 +132,18 @@ class DT(BinaryClassifier):
                 # and
                 #   self.right.trainDT(...) 
                 # with appropriate arguments
-                ### TODO: YOUR CODE HERE
-                leftD = X[X[:, self.feature] < 0.5]
-                rightD = X[X[:, self.feature] >= 0.5]
+
+                # TODO: define X and Y for left and right parts of current tree and init DT training
                 # redefine labels with the best feature
+                leftX = X[X[:, self.feature] < 0.5]
+                rightX = X[X[:, self.feature] >= 0.5]
                 leftY = Y[X[:, self.feature] < 0.5]
                 rightY = Y[X[:, self.feature] >= 0.5]
-                used = used + [self.feature]
-                # print "best feature found is ", self.feature
-                # print "updated used:", used, " maxDepth:", self.left.opts['maxDepth']
-                # print "leftY:", leftY
-                # print "rightY:", rightY
-                #                pdb.set_trace()
-                self.left.trainDT(leftD, leftY, self.left.opts['maxDepth'], used);
 
-                self.right.trainDT(rightD, rightY, self.right.opts['maxDepth'], used);
+                used = used + [self.feature] # anti infinite loop
+
+                self.left.trainDT(leftX, leftY, maxDepth-1, used)
+                self.right.trainDT(rightX, rightY, maxDepth-1, used)
 
     def train(self, X, Y):
         """
