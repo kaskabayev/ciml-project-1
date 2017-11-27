@@ -1,5 +1,7 @@
 from imports import *
 import dt
+import knn
+
 '''
 Warming up to Classifiers
 '''
@@ -15,9 +17,9 @@ Warming up to Classifiers
 '''
 Decision Trees
 '''
-h = dt.DT({'maxDepth': 5})
-h.train(datasets.TennisData.X, datasets.TennisData.Y)
-print(h)
+# h = dt.DT({'maxDepth': 5})
+# h.train(datasets.TennisData.X, datasets.TennisData.Y)
+# print(h)
 
 '''
 Running training and tests set
@@ -33,3 +35,22 @@ Better in terminal
 # runClassifier.plotCurve('DT on Sentiment Data', curve)
 # curve = runClassifier.hyperparamCurveSet(dt.DT({}), 'maxDepth', [1,2,4,6,8,12,16], datasets.SentimentData)
 # runClassifier.plotCurve('DT on Sentiment Data (hyperparameter)', curve)
+
+
+'''
+KNN
+'''
+'''
+Not KNN
+'''
+runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 0.5}), datasets.TennisData)
+runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 1.0}), datasets.TennisData)
+runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 2.0}), datasets.TennisData)
+
+'''
+KNN
+'''
+runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 1}), datasets.TennisData)
+runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 3}), datasets.TennisData)
+runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 5}), datasets.TennisData)
+

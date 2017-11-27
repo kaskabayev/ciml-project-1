@@ -65,8 +65,13 @@ class KNN(BinaryClassifier):
             K = self.opts['K']         # how many NN to use
 
             val = 0                    # this is our return value: #pos - #neg of the K nearest neighbors of X
-            ### TODO: YOUR CODE HERE
-            util.raiseNotDefined()
+            # AJ implementation of KNN
+            # get the dist, a single row vector
+            dist = sqrt(((X - self.trX) ** 2).sum(axis=1))
+            # argsort sorts and returns indices
+            disti_sorted = argsort(dist)
+            # take the first K indices, get their Y value and take the mode
+            val = util.mode(self.trY[disti_sorted[0:K]])
 
             return val
         else:
@@ -74,8 +79,14 @@ class KNN(BinaryClassifier):
             eps = self.opts['eps']     # how big is our epsilon ball
 
             val = 0                    # this is our return value: #pos - #neg within and epsilon ball of X
-            ### TODO: YOUR CODE HERE
-            util.raiseNotDefined()
+            # AJ implementation of eps ball
+            # get the euc distance of X to everything else.
+            dist = sqrt(((X - self.trX) ** 2).sum(axis=1))
+            # get the index of all pts that's within the eps ball
+            withinEpsY = self.trY[dist <= eps]
+
+            val = util.mode(withinEpsY)
+
             return val
                 
             
