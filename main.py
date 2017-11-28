@@ -1,6 +1,7 @@
 from imports import *
 import dt
 import knn
+import perceptron
 
 '''
 Warming up to Classifiers
@@ -41,16 +42,31 @@ Better in terminal
 KNN
 '''
 '''
-Not KNN
+EPS
 '''
-runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 0.5}), datasets.TennisData)
-runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 1.0}), datasets.TennisData)
-runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 2.0}), datasets.TennisData)
+# print('EPS:')
+# runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 0.5}), datasets.TennisData)
+# runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 1.0}), datasets.TennisData)
+# runClassifier.trainTestSet(knn.KNN({'isKNN': False, 'eps': 2.0}), datasets.TennisData)
 
 '''
 KNN
 '''
-runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 1}), datasets.TennisData)
-runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 3}), datasets.TennisData)
-runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 5}), datasets.TennisData)
+# print('KNN: ')
+# runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 1}), datasets.TennisData)
+# runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 3}), datasets.TennisData)
+# runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 5}), datasets.TennisData)
 
+'''
+The Perceptron
+'''
+runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 1}), datasets.TennisData)
+runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 2}), datasets.TennisData)
+
+runClassifier.plotData(datasets.TwoDDiagonal.X, datasets.TwoDDiagonal.Y)
+h = perceptron.Perceptron({'numEpoch': 200})
+h.train(datasets.TwoDDiagonal.X, datasets.TwoDDiagonal.Y)
+runClassifier.plotClassifier(array([ 7.3, 18.9]), 0.0)
+
+runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 1}), datasets.SentimentData)
+runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 2}), datasets.SentimentData)
