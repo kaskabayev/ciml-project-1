@@ -69,16 +69,10 @@ class KNN(BinaryClassifier):
 
             dist = sqrt(((X - self.trX) ** 2).sum(axis=1))
 
-            print(dist)
-
             # argsort sorts and returns indices
             dist_sorted = argsort(dist)
 
-            print(dist_sorted)
-
             # take the first K indices, get their Y value and take the mode
-
-            print(self.trY[dist_sorted])
 
             val = util.mode(self.trY[dist_sorted[0:K]])
 

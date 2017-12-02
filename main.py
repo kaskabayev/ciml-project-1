@@ -7,7 +7,7 @@ import perceptron
 Warming up to Classifiers
 '''
 # print('Always predict one: ')
-# runClassifier.trainTestSet(dumbClassifiers.AlwaysPredictOne({}), datasets.SentimentData)
+runClassifier.trainTestSet(dumbClassifiers.AlwaysPredictOne({}), datasets.SentimentData)
 # print('Always predict most frequent class: ', )
 # runClassifier.trainTestSet(dumbClassifiers.AlwaysPredictMostFrequent({}), datasets.SentimentData)
 # print('First Feature Classifier (Tennis Data):')
@@ -57,16 +57,33 @@ KNN
 # runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 3}), datasets.TennisData)
 # runClassifier.trainTestSet(knn.KNN({'isKNN': True, 'K': 5}), datasets.TennisData)
 
+# curveKNN = runClassifier.hyperparamCurveSet(knn.KNN({'isKNN':True, 'K':1}), 'K', [1,3,5,7], datasets.TennisData)
+# runClassifier.plotCurve('KNN K=[1,3,5,7]', curveKNN)
+#
+# curveEps = runClassifier.hyperparamCurveSet(knn.KNN({'isKNN':False, 'eps':0.5}), 'eps',[0.5,1.0,1.5,2.0], datasets.TennisData)
+# runClassifier.plotCurve('KNN eps=[1.0,1.5,2.0]', curveEps)
+#
+# learningCurveK = runClassifier.learningCurveSet(knn.KNN({'isKNN':True, 'K':5}), datasets.TennisData)
+# runClassifier.plotCurve('KNN K=5', learningCurveK)
+#
+
 '''
 The Perceptron
 '''
-runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 1}), datasets.TennisData)
-runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 2}), datasets.TennisData)
-
-runClassifier.plotData(datasets.TwoDDiagonal.X, datasets.TwoDDiagonal.Y)
+# runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 1}), datasets.TennisData)
+# runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 2}), datasets.TennisData)
+#
+# runClassifier.plotData(datasets.TwoDDiagonal.X, datasets.TwoDDiagonal.Y)
 h = perceptron.Perceptron({'numEpoch': 200})
-h.train(datasets.TwoDDiagonal.X, datasets.TwoDDiagonal.Y)
-runClassifier.plotClassifier(array([ 7.3, 18.9]), 0.0)
+# h.train(datasets.TwoDDiagonal.X, datasets.TwoDDiagonal.Y)
+# runClassifier.plotClassifier(array([ 7.3, 18.9]), 0.0)
+#
+# runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 1}), datasets.SentimentData)
+# runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 2}), datasets.SentimentData)
 
-runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 1}), datasets.SentimentData)
-runClassifier.trainTestSet(perceptron.Perceptron({'numEpoch': 2}), datasets.SentimentData)
+exs = range(1,20)
+curveP = runClassifier.hyperparamCurveSet(h, 'numEpoch', exs, datasets.SentimentData)
+runClassifier.plotCurve('Perceptron on epoch=[1:20]', curveP)
+
+learningCurveK = runClassifier.learningCurveSet(perceptron.Perceptron({'numEpoch': 5}), datasets.SentimentData)
+runClassifier.plotCurve('Perceptron Learning on Sentiment', learningCurveK)
